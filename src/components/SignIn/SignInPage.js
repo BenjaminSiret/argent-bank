@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import './SignInPage.css'
 export default function SignIn () {
   return (
-    <div className="signIn">
+    <div className="signInPage">
       <div className="main bg-dark">
         <section className="sign-in-content">
           <i class="fa fa-user-circle sign-in-icon"></i>

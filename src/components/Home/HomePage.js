@@ -4,7 +4,7 @@ import iconMoney from '../../img/icon-money.png'
 import iconSecurity from '../../img/icon-security.png'
 export default function HomePage () {
   return (
-    <div className="HomePage">
+    <div className="homePage">
       <div className="hero">
         <section className="hero-content">
           <h2 className="sr-only">Promoted Content</h2>
