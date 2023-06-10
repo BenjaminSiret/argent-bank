@@ -51,3 +51,5 @@ export default function HomePage () {
     </div>
   )
 }
+
+//TODO: checker le css pour ce composant
