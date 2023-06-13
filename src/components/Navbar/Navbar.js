@@ -22,5 +22,3 @@ export default function Navbar () {
   )
 }
 
-//TODO: checker le css pour ce composant
-
