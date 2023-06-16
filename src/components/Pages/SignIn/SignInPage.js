@@ -1,10 +1,11 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { authStart } from 'redux/authSlice'
-
+import { authStart, authSuccess, authFail } from 'redux/authSlice'
+import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import './SignInPage.css'
 export default function SignIn () {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const urlAPI = 'http://localhost:3001/api/v1'
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -21,9 +22,16 @@ export default function SignIn () {
           email: 'tony@stark.com',
           password: 'password123'
         })
-      }).then(res => res.json().then(data => {
-        console.log(data)
-      }))
+      }).then(response => response.json().then(data => {
+        if (data.body.token) {
+          dispatch(authSuccess(data.body.token))
+          navigate('/user')
+        } else {
+          dispatch(authFail(data.body.message))
+        }
+      })).catch(error => {
+        dispatch(authFail(error))
+      })
   }
 
   return (
