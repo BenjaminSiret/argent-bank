@@ -1,10 +1,10 @@
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { authStart, authSuccess, authFail } from 'redux/authSlice'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
+import { signInService } from 'services/signInService'
 import './SignInPage.css'
 export default function SignIn () {
-  const urlAPI = 'http://localhost:3001/api/v1'
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
@@ -15,25 +15,12 @@ export default function SignIn () {
 
     dispatch(authStart())
 
-    fetch(`${urlAPI}/user/login`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          email,
-          password
-        })
-      }).then(response => response.json().then(data => {
-        if (data.body.token) {
-          dispatch(authSuccess(data.body.token))
-          navigate('/profile')
-        } else {
-          dispatch(authFail(data.body.message))
-        }
-      })).catch(error => {
-        dispatch(authFail(error))
+    signInService(email, password)
+      .then(token => {
+        dispatch(authSuccess(token))
+        navigate('/profile')
+      }).catch(error => {
+        dispatch(authFail(error.message))
       })
   }
 
