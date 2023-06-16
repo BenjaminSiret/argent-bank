@@ -1,14 +1,15 @@
 import { useSelector } from 'react-redux'
 import { Navigate } from 'react-router-dom'
-import './UserPage.css'
+import './ProfilePage.css'
 
-export default function UserPage () {
+export default function ProfilePage () {
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
   if (!isAuthenticated) {
     return <Navigate to="/sign-in" />
   } else {
+    //TODO - implémenter la page User avec les données réelles de l'API
     return (
-      <div className="userPage">
+      <div className="ProfilePage">
         <div className="main bg-dark">
           <div className="header">
             <h1>Welcome back<br />Tony Jarvis!</h1>

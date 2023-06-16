@@ -2,7 +2,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import RootLayout from './components/Layout/RootLayout';
 import HomePage from './components/Pages/Home/HomePage';
 import SignInPage from './components/Pages/SignIn/SignInPage';
-import UserPage from './components/Pages/User/UserPage';
+import ProfilePage from './components/Pages/User/ProfilePage';
 
 const router = createBrowserRouter([
   {
@@ -18,8 +18,8 @@ const router = createBrowserRouter([
         element: <SignInPage />
       },
       {
-        path: '/user',
-        element: <UserPage />
+        path: '/profile',
+        element: <ProfilePage />
       }
     ]
   }

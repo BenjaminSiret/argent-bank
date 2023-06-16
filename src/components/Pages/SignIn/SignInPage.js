@@ -1,12 +1,15 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { authStart, authSuccess, authFail } from 'redux/authSlice'
 import { useNavigate } from 'react-router-dom'
-import { Link } from 'react-router-dom'
+import { useState } from 'react'
 import './SignInPage.css'
 export default function SignIn () {
+  const urlAPI = 'http://localhost:3001/api/v1'
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const urlAPI = 'http://localhost:3001/api/v1'
+
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -19,13 +22,13 @@ export default function SignIn () {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          email: 'tony@stark.com',
-          password: 'password123'
+          email,
+          password
         })
       }).then(response => response.json().then(data => {
         if (data.body.token) {
           dispatch(authSuccess(data.body.token))
-          navigate('/user')
+          navigate('/profile')
         } else {
           dispatch(authFail(data.body.message))
         }
@@ -43,17 +46,16 @@ export default function SignIn () {
           <form onSubmit={handleSubmit}>
             <div className="input-wrapper">
               <label htmlFor='username'>Username</label>
-              <input type="text" id="username" />
+              <input type="text" id="username" value={email} onChange={e => setEmail(e.target.value)} />
             </div>
             <div className="input-wrapper">
               <label htmlFor="password">Password</label>
-              <input type="password" id="password" />
+              <input type="password" id="password" value={password} onChange={e => setPassword(e.target.value)} />
             </div>
             <div className="input-remember">
               <input type="checkbox" id="remember-me" />
               <label htmlFor="remember-me">Remember me</label>
             </div>
-            {/* <Link to='/user' class="sign-in-button">Sign In</Link> */}
             <button type="submit" className="sign-in-button">Sign In</button>
           </form>
         </section>
