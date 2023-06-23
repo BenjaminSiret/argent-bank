@@ -1,15 +1,31 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { userFetchStart, userFetchSuccess, userFetchFail } from 'redux/userSlice'
+import { userFetchStart, userFetchSuccess, userFetchFail, profileUpdateStart, profileUpdateSuccess, profileUpdateFail } from 'redux/userSlice'
 import { Navigate } from 'react-router-dom'
 import './ProfilePage.css'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { fetchProfileService } from 'services/fetchProfileService'
+import { updateProfileService } from 'services/updateProfileService'
 
 export default function ProfilePage () {
   const dispatch = useDispatch()
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
   const token = useSelector(state => state.auth.token)
   const user = useSelector(state => state.user)
+
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    dispatch(profileUpdateStart())
+
+    updateProfileService(token, firstName, lastName)
+      .then(data => {
+        dispatch(profileUpdateSuccess(data))
+      })
+  }
+
 
   useEffect(() => {
     dispatch(userFetchStart())
@@ -33,6 +49,11 @@ export default function ProfilePage () {
           <div className="header">
             <h1>Welcome back<br />{user.firstName}</h1>
             <button className="edit-button">Edit Name</button>
+            <form onSubmit={handleSubmit}>
+              <input type="text" id="firstName" value={firstName} onChange={e => setFirstName(e.target.value)} />
+              <input type="text" id='lastName' value={lastName} onChange={e => setLastName(e.target.value)} />
+              <button type="submit">UPDATE</button>
+            </form>
           </div>
           <h2 className="sr-only">Accounts</h2>
           <section className="account">

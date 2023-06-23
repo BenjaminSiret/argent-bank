@@ -10,7 +10,6 @@ export async function fetchProfileService (token) {
 
   const data = await response.json()
   if (data.body) {
-    console.log(data.body)
     return data.body
   } else {
     throw new Error('Error fetching profile')

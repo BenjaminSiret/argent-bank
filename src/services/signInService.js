@@ -11,6 +11,7 @@ export async function signInService (email, password) {
       password
     })
   })
+
   const data = await response.json()
   if (data.body.token) {
     return data.body.token

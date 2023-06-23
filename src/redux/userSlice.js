@@ -31,7 +31,8 @@ const userSlice = createSlice({
       state.error = null;
     },
     profileUpdateSuccess (state, action) {
-      state.firstName = action.payload.name;
+      state.firstName = action.payload.firstName;
+      state.lastName = action.payload.lastName;
       state.isLoading = false;
       state.error = null;
     },
