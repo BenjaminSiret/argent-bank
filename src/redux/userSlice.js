@@ -1,8 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  name: null,
-  account: null,
+  firstName: null,
   transactions: [],
   isLoading: false,
   error: null
@@ -13,20 +12,17 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     userFetchStart (state) {
-      state.name = null;
-      state.account = null;
+      state.firstName = null;
       state.isLoading = true;
       state.error = null;
     },
     userFetchSuccess (state, action) {
-      state.name = action.payload.name;
-      state.account = action.payload.account;
+      state.firstName = action.payload.firstName;
       state.isLoading = false;
       state.error = null;
     },
     userFetchFail (state, action) {
-      state.name = null;
-      state.account = null;
+      state.firstName = null;
       state.isLoading = false;
       state.error = action.payload;
     },
@@ -35,8 +31,7 @@ const userSlice = createSlice({
       state.error = null;
     },
     profileUpdateSuccess (state, action) {
-      state.name = action.payload.name;
-      state.account = action.payload.account;
+      state.firstName = action.payload.name;
       state.isLoading = false;
       state.error = null;
     },
