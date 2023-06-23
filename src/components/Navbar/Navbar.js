@@ -6,6 +6,7 @@ import logo from 'img/argentBankLogo.png'
 import './Navbar.css'
 export default function Navbar () {
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
+  const user = useSelector(state => state.user)
   const dispatch = useDispatch()
 
   const handleLogout = () => {
@@ -26,7 +27,7 @@ export default function Navbar () {
         {isAuthenticated ? (
           <><Link className='main-nav-item' to="/profile">
             <i className='fa fa-user-circle'></i>
-            Tony
+            {user.firstName}
           </Link>
             <Link className='main-nav-item' to='/' onClick={handleLogout} >
               <i className='fa fa-sign-out'></i>
