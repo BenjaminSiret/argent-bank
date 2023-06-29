@@ -13,16 +13,19 @@ const userSlice = createSlice({
   reducers: {
     userFetchStart (state) {
       state.firstName = null;
+      state.lastName = null;
       state.isLoading = true;
       state.error = null;
     },
     userFetchSuccess (state, action) {
       state.firstName = action.payload.firstName;
+      state.lastName = action.payload.lastName;
       state.isLoading = false;
       state.error = null;
     },
     userFetchFail (state, action) {
       state.firstName = null;
+      state.lastName = null;
       state.isLoading = false;
       state.error = action.payload;
     },
@@ -37,21 +40,6 @@ const userSlice = createSlice({
       state.error = null;
     },
     profileUpdateFail (state, action) {
-      state.isLoading = false;
-      state.error = action.payload;
-    },
-    transactionFetchStart (state) {
-      state.transactions = [];
-      state.isLoading = true;
-      state.error = null;
-    },
-    transactionFetchSuccess (state, action) {
-      state.transactions = action.payload;
-      state.isLoading = false;
-      state.error = null;
-    },
-    transactionFetchFail (state, action) {
-      state.transactions = [];
       state.isLoading = false;
       state.error = action.payload;
     }

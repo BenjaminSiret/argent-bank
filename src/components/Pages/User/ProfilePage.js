@@ -14,18 +14,34 @@ export default function ProfilePage () {
 
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
-
+  const [isEditing, setIsEditing] = useState(false);
+  const [nameError, setNameError] = useState('');
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (!firstName.match(/^[a-zA-Z]+$/) && !lastName.match(/^[a-zA-Z]+$/)) {
+      setNameError("Please enter a valid name")
+      return;
+    }
 
     dispatch(profileUpdateStart())
 
     updateProfileService(token, firstName, lastName)
       .then(data => {
         dispatch(profileUpdateSuccess(data))
+        toggleForm()
       })
   }
 
+  const toggleForm = () => {
+    setIsEditing(!isEditing);
+  }
+
+  const resetForm = () => {
+    setFirstName('')
+    setLastName('')
+    setNameError('')
+  }
 
   useEffect(() => {
     dispatch(userFetchStart())
@@ -48,12 +64,16 @@ export default function ProfilePage () {
         <div className="main bg-dark">
           <div className="header">
             <h1>Welcome back<br />{user.firstName}</h1>
-            <button className="edit-button">Edit Name</button>
-            <form onSubmit={handleSubmit}>
-              <input type="text" id="firstName" value={firstName} onChange={e => setFirstName(e.target.value)} />
-              <input type="text" id='lastName' value={lastName} onChange={e => setLastName(e.target.value)} />
-              <button type="submit">UPDATE</button>
-            </form>
+            <button className="edit-button" onClick={toggleForm}>Edit Name</button>
+            {isEditing &&
+              <form onSubmit={handleSubmit}>
+                <input type="text" id="firstName" className="formInput" value={firstName} onChange={e => setFirstName(e.target.value)} onKeyDown={() => setNameError('')} placeholder={user.firstName} />
+                <input type="text" id="lastName" className="formInput" value={lastName} onChange={e => setLastName(e.target.value)} onKeyDown={() => setNameError('')} placeholder={user.lastName} />
+                <button type="submit">Save</button>
+                <button type="reset" onClick={resetForm}>Cancel</button>
+              </form>
+            }
+            {nameError && <p>{nameError}</p>}
           </div>
           <h2 className="sr-only">Accounts</h2>
           <section className="account">
