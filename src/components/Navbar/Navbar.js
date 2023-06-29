@@ -27,17 +27,17 @@ export default function Navbar () {
         {isAuthenticated ? (
           <><Link className='main-nav-item' to="/profile">
             <i className='fa fa-user-circle'></i>
-            {user.firstName}
+            <span className="nav-span">{user.firstName}</span>
           </Link>
             <Link className='main-nav-item' to='/' onClick={handleLogout} >
               <i className='fa fa-sign-out'></i>
-              Sign Out
+              <span className="nav-span">Sign Out</span>
             </Link>
           </>
         ) : (
           <Link className='main-nav-item' to='/sign-in'>
             <i className='fa fa-user-circle'></i>
-            Sign In
+            <span className="nav-span">Sign In</span>
           </Link>
         )}
       </div>

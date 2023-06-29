@@ -19,7 +19,7 @@ export default function ProfilePage () {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!firstName.match(/^[a-zA-Z]+$/) && !lastName.match(/^[a-zA-Z]+$/)) {
+    if (!firstName.match(/^[a-zA-Z]+$/) || !lastName.match(/^[a-zA-Z]+$/)) {
       setNameError("Please enter a valid name")
       return;
     }
@@ -30,6 +30,9 @@ export default function ProfilePage () {
       .then(data => {
         dispatch(profileUpdateSuccess(data))
         toggleForm()
+      }).catch(error => {
+        dispatch(profileUpdateFail(error))
+        console.log(error)
       })
   }
 
@@ -66,11 +69,15 @@ export default function ProfilePage () {
             <h1>Welcome back<br />{user.firstName}</h1>
             <button className="edit-button" onClick={toggleForm}>Edit Name</button>
             {isEditing &&
-              <form onSubmit={handleSubmit}>
-                <input type="text" id="firstName" className="formInput" value={firstName} onChange={e => setFirstName(e.target.value)} onKeyDown={() => setNameError('')} placeholder={user.firstName} />
-                <input type="text" id="lastName" className="formInput" value={lastName} onChange={e => setLastName(e.target.value)} onKeyDown={() => setNameError('')} placeholder={user.lastName} />
-                <button type="submit">Save</button>
-                <button type="reset" onClick={resetForm}>Cancel</button>
+              <form onSubmit={handleSubmit} className="editForm">
+                <div className="formItems">
+                  <input type="text" id="firstName" className="formInput" value={firstName} onChange={e => setFirstName(e.target.value)} onKeyDown={() => setNameError('')} placeholder={user.firstName} />
+                  <input type="text" id="lastName" className="formInput" value={lastName} onChange={e => setLastName(e.target.value)} onKeyDown={() => setNameError('')} placeholder={user.lastName} />
+                </div>
+                <div className="formItems">
+                  <button type="submit" className="formButton">Save</button>
+                  <button type="reset" onClick={resetForm} className="formButton">Cancel</button>
+                </div>
               </form>
             }
             {nameError && <p>{nameError}</p>}
