@@ -111,12 +111,13 @@
 }
 
 .formButton {
-  padding: 10px 25px;
+  padding: 10px;
   border-radius: 3px;
   border: none;
   background-color: white;
   color: #7266F5;
   font-weight: 600;
+  min-width: 95px;
 }
 
 @media (min-width: 720px) {
