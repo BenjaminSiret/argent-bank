@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   firstName: null,
-  transactions: [],
   isLoading: false,
   error: null
 }

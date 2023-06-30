@@ -9,7 +9,7 @@ import { updateProfileService } from 'services/updateProfileService'
 export default function ProfilePage () {
   const dispatch = useDispatch()
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
-  const token = useSelector(state => state.auth.token)
+  const token = localStorage.getItem('authToken')
   const user = useSelector(state => state.user)
 
   const [firstName, setFirstName] = useState('')
@@ -56,7 +56,6 @@ export default function ProfilePage () {
         dispatch(userFetchFail(error))
         console.log(error)
       })
-
   }, [])
 
   if (!isAuthenticated) {
