@@ -19,14 +19,17 @@ export default function ProfilePage () {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!firstName.match(/^[a-zA-Z]+$/) || !lastName.match(/^[a-zA-Z]+$/)) {
+    const newFirstName = firstName !== '' ? firstName : user.firstName
+    const newLastName = lastName !== '' ? lastName : user.lastName
+
+    if (!newFirstName.match(/^[a-zA-Z]+$/) || !newLastName.match(/^[a-zA-Z]+$/)) {
       setNameError("Please enter a valid name")
       return;
     }
 
     dispatch(profileUpdateStart())
 
-    updateProfileService(token, firstName, lastName)
+    updateProfileService(token, newFirstName, newLastName)
       .then(data => {
         dispatch(profileUpdateSuccess(data))
         handleEdit()
@@ -70,6 +73,13 @@ export default function ProfilePage () {
         console.log(error)
       })
   }, [])
+
+  useEffect(() => {
+    if (!isEditing) {
+      setFirstName(user.firstName)
+      setLastName(user.lastName)
+    }
+  }, [isEditing, user.firstName, user.lastName])
 
   if (!isAuthenticated) {
     return <Navigate to="/" />
