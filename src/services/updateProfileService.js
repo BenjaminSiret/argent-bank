@@ -1,4 +1,4 @@
-const urlAPI = 'http://localhost:3001/api/v1'
+const urlAPI = process.env.REACT_APP_API_URL;
 
 export async function updateProfileService (token, firstName, lastName) {
   const response = await fetch(`${urlAPI}/user/profile`, {
