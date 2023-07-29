@@ -19,7 +19,7 @@ Argent Bank is the number 1 online banking application
 
 This project uses an API to operate.
 
-You can find it here: https://github.com/BenjaminSiret/
+You can find it here: https://github.com/BenjaminSiret/Project-10-Bank-API
 
 Follow the instructions provided in the README file for its installation and start-up.
 
