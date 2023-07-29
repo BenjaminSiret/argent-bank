@@ -9,7 +9,7 @@ import { updateProfileService } from 'services/updateProfileService'
 export default function ProfilePage () {
   const dispatch = useDispatch()
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
-  const token = localStorage.getItem('authToken')
+  const token = sessionStorage.getItem('authToken')
   const user = useSelector(state => state.user)
 
   const [firstName, setFirstName] = useState('')

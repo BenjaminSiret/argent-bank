@@ -18,7 +18,7 @@ export default function SignIn () {
     signInService(email, password)
       .then(token => {
         dispatch(authSuccess(token))
-        localStorage.setItem('authToken', token)
+        sessionStorage.setItem('authToken', token)
         navigate('/profile')
       }).catch(error => {
         dispatch(authFail(error.message))
