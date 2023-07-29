@@ -7,6 +7,7 @@ Argent Bank is the number 1 online banking application
 ## Used Technologies
 
 ![React version](https://img.shields.io/badge/react-18.2.0-informational)
+
 ![Redux version](https://img.shields.io/badge/react_redux-8.0.7-informational)
 
 
