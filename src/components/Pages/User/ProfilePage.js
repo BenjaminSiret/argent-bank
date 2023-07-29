@@ -29,15 +29,28 @@ export default function ProfilePage () {
     updateProfileService(token, firstName, lastName)
       .then(data => {
         dispatch(profileUpdateSuccess(data))
-        toggleForm()
+        handleEdit()
       }).catch(error => {
         dispatch(profileUpdateFail(error))
         console.log(error)
       })
   }
 
-  const toggleForm = () => {
-    setIsEditing(!isEditing);
+  const handleEdit = () => {
+    if (isEditing) {
+      resetForm()
+      setIsEditing(false)
+    } else {
+      setIsEditing(true)
+    }
+  }
+
+  const handleCancel = () => {
+    if (firstName === '' && lastName === '') {
+      handleEdit()
+    } else {
+      resetForm()
+    }
   }
 
   const resetForm = () => {
@@ -66,7 +79,7 @@ export default function ProfilePage () {
         <div className="main bg-dark">
           <div className="header">
             <h1>Welcome back<br />{user.firstName}</h1>
-            <button className="edit-button" onClick={toggleForm}>Edit Name</button>
+            <button className="edit-button" onClick={handleEdit}>Edit Name</button>
             {isEditing &&
               <form onSubmit={handleSubmit} className="editForm">
                 <div className="formItems">
@@ -75,7 +88,7 @@ export default function ProfilePage () {
                 </div>
                 <div className="formItems">
                   <button type="submit" className="formButton">Save</button>
-                  <button type="reset" onClick={resetForm} className="formButton">Cancel</button>
+                  <button type="button" onClick={handleCancel} className="formButton">Cancel</button>
                 </div>
               </form>
             }

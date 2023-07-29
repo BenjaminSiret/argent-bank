@@ -11,6 +11,7 @@ export default function Navbar () {
 
   const handleLogout = () => {
     dispatch(authLogout())
+    localStorage.removeItem('authToken')
   }
 
   return (
