@@ -1,10 +1,10 @@
+import { useEffect, useState } from 'react'
+import { Navigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { userFetchStart, userFetchSuccess, userFetchFail, profileUpdateStart, profileUpdateSuccess, profileUpdateFail } from 'redux/userSlice'
-import { Navigate } from 'react-router-dom'
-import './ProfilePage.css'
-import { useEffect, useState } from 'react'
 import { fetchProfileService } from 'services/fetchProfileService'
 import { updateProfileService } from 'services/updateProfileService'
+import './ProfilePage.css'
 
 export default function ProfilePage () {
   const dispatch = useDispatch()

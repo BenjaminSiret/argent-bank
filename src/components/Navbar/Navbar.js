@@ -1,9 +1,10 @@
+import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import { authLogout } from 'redux/authSlice'
-import { Link } from 'react-router-dom'
 import logo from 'img/argentBankLogo.png'
 import './Navbar.css'
+
 export default function Navbar () {
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
   const user = useSelector(state => state.user)
